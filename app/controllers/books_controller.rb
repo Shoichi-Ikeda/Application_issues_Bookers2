@@ -48,6 +48,10 @@ class BooksController < ApplicationController
     params.require(:book).permit(:title, :body)
   end
 
-
-
+  def ensure_correct_user
+    @book = Book.find(params[:id])
+    if @book.user != current_user
+      redirect_to books_path
+    end
+  end
 end
