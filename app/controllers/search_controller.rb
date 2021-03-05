@@ -1,8 +1,7 @@
 class SearchController < ApplicationController
   def search
-		@book = Book.new
 		if params[:word].present? && params[:model] === "Book" && params[:search] === "perfect"
-			@books = Book.where('title LIKE ?', "#{params[:word]}") 
+			@books = Book.where('title LIKE ?', "#{params[:word]}")
 			# 完全一致(book)
 		elsif params[:word].present? && params[:model] === "Book" && params[:search] === "front"
 			@books = Book.where('title LIKE ?', "#{params[:word]}%")
@@ -13,10 +12,8 @@ class SearchController < ApplicationController
 		elsif params[:word].present? && params[:model] === "Book" && params[:search] === "part"
 			@books = Book.where('title LIKE ?', "%#{params[:word]}%")
 			# 部分一致(book)
-		else
-      @books = Book.none
 		end
-		
+
 		if params[:word].present? && params[:model] === "User" && params[:search] === "perfect"
 			@users = User.where('name LIKE ?', "#{params[:word]}")
 			# 完全一致(user)
@@ -29,8 +26,6 @@ class SearchController < ApplicationController
 		elsif params[:word].present? && params[:model] === "User" && params[:search] === "part"
 			@users = User.where('name LIKE ?', "%#{params[:word]}%")
 			# 部分一致(user)
-		else
-      @users = User.none
     end
 	end
 end
